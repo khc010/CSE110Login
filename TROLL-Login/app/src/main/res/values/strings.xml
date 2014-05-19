@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">TROLL-Login</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="login_title">Please Log in</string>
+    <string name="login_msg">Please log in or sign up to continue.</string>
+    <string name="click_me">Click me!</string>
+    <string name="cancel">Cancel</string>
+    <string name="login">Log in</string>
+    <string name="signup">Sign Up</string>
+    <string name="login_btn_axn">showLoginDialog</string>
+
+
+</resources>
