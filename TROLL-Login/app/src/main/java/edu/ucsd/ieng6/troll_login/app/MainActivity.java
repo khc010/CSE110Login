@@ -9,17 +9,27 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import static edu.ucsd.ieng6.troll_login.app.Login.LoginDialogListener;
 
 
 public class MainActivity extends FragmentActivity
                           implements LoginDialogListener {
+	private JSONParser jsonparser;
+	private String userURL = "troll.everythingcoed.com/user/login";
+	EditText username = null;
+	EditText password = null;
+	TextView Results;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        jsonParser = new JSONParser();
         setContentView(R.layout.activity_main);
+        username = (EditText)findViewById(R.id.editTextUser);
+        password = (EditText)findViewById(R.id.editTextPass);
     }
 
     @Override
@@ -51,7 +61,29 @@ public class MainActivity extends FragmentActivity
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         // Call to API for Login
-
+                    	String user = username.getText().toString();
+                    	String pass = password.getText().toString();
+                    	JSONObject json = getUser(user, pass);
+                    	
+                    	
+                    	/*try {
+                            if (json.getString(jsonResult) != null) {
+                                Results.setText("");
+                                String res = json.getString(jsonResult);
+                                if(Integer.parseInt(res) == 1){
+                                    //If it's a success create a new JSON object for the user element
+                                    JSONObject json_user = json.getJSONObject("user");
+                                    //Set the results text to the age from the above JSON object
+                                    Results.setText("User Age: " + json_user.getString("age"));
+                                     
+                                }else{
+                                    //If the user could not be found
+                                    Results.setText("User could not be found");
+                                }
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }*/
                     }
                 })
                 .setNeutralButton(R.string.signup, new DialogInterface.OnClickListener() {
@@ -95,6 +127,16 @@ public class MainActivity extends FragmentActivity
     public void onDialogNegativeClick(DialogFragment dialog) {
         // User touched the dialog's negative button
 
+    }
+    
+    //The below passes the tag and the user name over to the JSON parser class
+    public JSONObject getUser(String username, String password){
+        List<BasicNameValuePair> params = new ArrayList<BasicNameValuePair>();
+        params.add(new BasicNameValuePair("api_key", "OlDwjUX0fQSm0vAy2D3fy4uCZ108bx5N"));
+        params.add(new BasicNameValuePair("username", username));
+        params.add(new BasicNameValuePair("password", password));
+        JSONObject json = jsonParser.getJSONFromUrl(userURL, params);
+        return json;
     }
 
 
