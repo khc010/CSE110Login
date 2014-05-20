@@ -18,7 +18,8 @@ import static edu.ucsd.ieng6.troll_login.app.Login.LoginDialogListener;
 public class MainActivity extends FragmentActivity
                           implements LoginDialogListener {
 	private JSONParser jsonparser;
-	private String userURL = "troll.everythingcoed.com/user/login";
+	private String userURL = "troll.everythingcoed.com/user/login";\
+	//Instantiate EditText objects to take in strings from the text fields
 	EditText username = null;
 	EditText password = null;
 	TextView Results;
@@ -28,8 +29,10 @@ public class MainActivity extends FragmentActivity
         super.onCreate(savedInstanceState);
         jsonParser = new JSONParser();
         setContentView(R.layout.activity_main);
+        //Read the text fields
         username = (EditText)findViewById(R.id.editTextUser);
         password = (EditText)findViewById(R.id.editTextPass);
+        //error = (TextView)findViewById(R.id.tv_error);
     }
 
     @Override
@@ -60,7 +63,7 @@ public class MainActivity extends FragmentActivity
                 .setPositiveButton(R.string.login, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        // Call to API for Login
+                        //Pass usrname and pwrd to helper function to get a json object
                     	String user = username.getText().toString();
                     	String pass = password.getText().toString();
                     	JSONObject json = getUser(user, pass);
