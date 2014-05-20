@@ -22,6 +22,7 @@ public class MainActivity extends FragmentActivity
 	//Instantiate EditText objects to take in strings from the text fields
 	EditText username = null;
 	EditText password = null;
+	private static String result = "result"
 	TextView Results;
 
     @Override
@@ -32,7 +33,6 @@ public class MainActivity extends FragmentActivity
         //Read the text fields
         username = (EditText)findViewById(R.id.editTextUser);
         password = (EditText)findViewById(R.id.editTextPass);
-        //error = (TextView)findViewById(R.id.tv_error);
     }
 
     @Override
@@ -69,24 +69,27 @@ public class MainActivity extends FragmentActivity
                     	JSONObject json = getUser(user, pass);
                     	
                     	
-                    	/*try {
-                            if (json.getString(jsonResult) != null) {
+                    	try {
+                            if (json.getString(result) != null) {
                                 Results.setText("");
-                                String res = json.getString(jsonResult);
-                                if(Integer.parseInt(res) == 1){
+                                String res = json.getString(result);
+                                if(res.equals("success") == true){
                                     //If it's a success create a new JSON object for the user element
                                     JSONObject json_user = json.getJSONObject("user");
                                     //Set the results text to the age from the above JSON object
-                                    Results.setText("User Age: " + json_user.getString("age"));
+                                    Results.setText("Username " + json_user.getString("username") + " and password are valid");
                                      
-                                }else{
+                                }else if(res.equals("failure") == true){
                                     //If the user could not be found
                                     Results.setText("User could not be found");
+                                }else{
+                                    //If the user could not be found
+                                    Results.setText("An Error has occurred");
                                 }
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
-                        }*/
+                        }
                     }
                 })
                 .setNeutralButton(R.string.signup, new DialogInterface.OnClickListener() {
